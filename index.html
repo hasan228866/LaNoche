@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA NOCHE - Premium Gym Wear</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1 class="brand-name">LA NOCHE</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#order">Pesan</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">LA NOCHE</h1>
+                <p class="tagline">Elevate Your Performance. Define Your Strength.</p>
+                <p class="hero-description">Gym wear premium dengan desain  yang berani dan bahan berkualitas untuk mendukung setiap latihan dengan intensitas tinggi.</p>
+                <a href="#order" class="cta-button">Pesan Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Tentang LA NOCHE</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>LA NOCHE lahir dari passion terhadap dunia fitness dan kebutuhan akan pakaian olahraga yang tidak hanya fungsional tetapi juga memiliki nilai estetika tinggi. Didirikan pada tahun 2020, brand kami berkomitmen untuk menghadirkan kaos gym yang menggabungkan performa optimal dengan desain yang elegan.</p>
+                    <p>Nama "LA NOCHE" yang berarti "malam" dalam bahasa Spanyol, terinspirasi dari dedikasi tanpa henti para atlet dan fitness enthusiast yang berlatih tak kenal waktu, bahkan hingga larut malam. Filosofi ini tercermin dalam setiap produk kami yang dirancang untuk menemani perjalanan fitness Anda kapan saja.</p>
+                    <p>Dengan material khusus yang kami kembangkan, setiap kaos LA NOCHE memberikan kenyamanan maksimal, daya serap keringat yang optimal, dan ketahanan terhadap berbagai kondisi latihan intensif. Desain kami yang minimalis namun powerful mencerminkan esensi dari kekuatan dan disiplin dalam berlatih.</p>
+                </div>
+                <div class="about-image">
+                    <!-- TEMPAT FOTO BRAND - Ganti src dengan URL foto Anda -->
+                    <img src="lanoche.jpg" alt="LA NOCHE Brand" class="brand-photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Koleksi Kami</h2>
+            <div class="products-grid" id="products-container">
+                <!-- Produk akan di-generate oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Guide Modal -->
+    <div id="size-guide-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Panduan Ukuran</h2>
+            <div class="size-guide-content">
+                <div class="size-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ukuran</th>
+                                <th>Lebar (cm)</th>
+                                <th>Panjang (cm)</th>
+                                <th>Lingkar Dada (cm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>M</td>
+                                <td>53</td>
+                                <td>72</td>
+                                <td>106</td>
+                            </tr>
+                            <tr>
+                                <td>L</td>
+                                <td>57</td>
+                                <td>74</td>
+                                <td>114</td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td>60</td>
+                                <td>75</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <td>XXL</td>
+                                <td>63</td>
+                                <td>77</td>
+                                <td>126</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="size-tips">
+                    <h3>Tips Memilih Ukuran</h3>
+                    <ul>
+                        <li>Ukuran sesuai standar kaos oversize</li>
+                        <li>Jika ragu, ukur kaos favorit Anda dan bandingkan dengan tabel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="product-detail">
+                <div class="product-detail-image">
+                    <div class="product-slider">
+                        <div class="slider-container">
+                            <div class="slides" id="product-slides">
+                                <!-- Slides will be populated by JavaScript -->
+                            </div>
+                            <button class="slider-nav prev">&#10094;</button>
+                            <button class="slider-nav next">&#10095;</button>
+                            <div class="slider-dots" id="slider-dots">
+                                <!-- Dots will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-detail-info">
+                    <h2 id="detail-product-name">Product Name</h2>
+                    <div class="product-price" id="detail-product-price">Rp 0</div>
+                    <p id="detail-product-description">Product description</p>
+                    
+                    <div class="product-features">
+                        <h3>Fitur Produk</h3>
+                        <ul id="detail-product-features">
+                            <!-- Features will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                    
+                    <div class="size-selection">
+                        <h3>Pilih Ukuran</h3>
+                        <div class="size-options">
+                            <button class="size-option" data-size="S">S</button>
+                            <button class="size-option" data-size="M">M</button>
+                            <button class="size-option" data-size="L">L</button>
+                            <button class="size-option" data-size="XL">XL</button>
+                            <button class="size-option" data-size="XXL">XXL</button>
+                        </div>
+                        <button class="size-guide-link" id="open-size-guide">Lihat Panduan Ukuran</button>
+                    </div>
+                    
+                    <button class="order-from-detail" id="order-from-detail">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Section -->
+    <section id="order" class="order">
+        <div class="container">
+            <h2 class="section-title">Pemesanan Pre-Order</h2>
+            <p class="order-description">Semua produk LA NOCHE dibuat melalui sistem pre-order dengan kualitas terjamin. Pesan sekarang dan dapatkan kaos gym premium dalam 5-8 hari.</p>
+            
+            <form id="order-form" class="order-form">
+                <div class="form-group">
+                    <label for="product">Pilih Produk</label>
+                    <select id="product" name="product" required>
+                        <option value="">-- Pilih Produk --</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="size">Ukuran</label>
+                    <select id="size" name="size" required>
+                        <option value="">-- Pilih Ukuran --</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                    <button type="button" class="size-guide-link" id="size-guide-btn">Panduan Ukuran</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Kuantitas</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Nomor WhatsApp</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Alamat Pengiriman</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Pesan via WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="brand-name">LA NOCHE</h3>
+                    <p>Premium Gym Wear</p>
+                </div>
+                <div class="footer-contact">
+                    <p>Email: info@lanoche.com</p>
+                    <p>Follow kami di media sosial</p>
+                    <div class="social-media">
+                        <a href="https://www.tiktok.com/@lanocheapparel?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">TikTok</a>
+                        <a href="https://www.instagram.com/la_noche_apparel?igsh=MWZkYTJ4a21od3U2" target="_blank" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LA NOCHE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
