@@ -4,56 +4,56 @@
 const products = [
     {
         id: 'performance-tee',
-        name: 'LA NOCHE Performance Tee',
+        name: 'Performance Tee',
         price: 'Rp 249.000',
         images: [
             'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
         ],
-        description: 'Kaos performa tinggi dengan teknologi moisture-wicking untuk latihan intensif.',
+        description: 'High-performance tee with moisture-wicking technology for intensive training.',
         features: [
             'Material: Premium Cotton Blend',
-            'Teknologi: Moisture-Wicking',
-            'Ventilasi: Strategic Mesh Panels',
-            'Jahitan: Flatlock Seams',
-            'Desain: Minimalis dengan Logo Embroidered'
+            'Technology: Moisture-Wicking',
+            'Ventilation: Strategic Mesh Panels',
+            'Seams: Flatlock Construction',
+            'Design: Minimalist with Embroidered Logo'
         ]
     },
     {
         id: 'compression-fit',
-        name: 'LA NOCHE Compression Fit',
+        name: 'Compression Fit',
         price: 'Rp 279.000',
         images: [
             'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
         ],
-        description: 'Desain kompresi untuk dukungan otot optimal dan recovery lebih cepat.',
+        description: 'Compression design for optimal muscle support and faster recovery.',
         features: [
             'Material: Nylon-Spandex Compression Blend',
-            'Teknologi: Muscle Support & Recovery',
-            'Fitur: Four-Way Stretch',
-            'Ventilasi: Breathable Mesh Inserts',
-            'Desain: Slim Fit dengan Reflective Details'
+            'Technology: Muscle Support & Recovery',
+            'Feature: Four-Way Stretch',
+            'Ventilation: Breathable Mesh Inserts',
+            'Design: Slim Fit with Reflective Details'
         ]
     },
     {
         id: 'signature-edition',
-        name: 'LA NOCHE Signature Edition',
+        name: 'Signature Edition',
         price: 'Rp 329.000',
         images: [
             'https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
         ],
-        description: 'Edisi terbatas dengan desain eksklusif dan material premium.',
+        description: 'Limited edition with exclusive design and premium materials.',
         features: [
             'Material: Ultra-Premium Micro-Modal',
-            'Teknologi: Advanced Moisture Management',
-            'Fitur: Anti-Odor Treatment',
-            'Jahitan: Seamless Construction',
-            'Desain: Limited Edition dengan Numbered Tag'
+            'Technology: Advanced Moisture Management',
+            'Feature: Anti-Odor Treatment',
+            'Seams: Seamless Construction',
+            'Design: Limited Edition with Numbered Tag'
         ]
     }
 ];
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 productModal.style.display = 'none';
                 document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
             } else {
-                alert('Silakan pilih ukuran terlebih dahulu.');
+                alert('Please select a size first.');
             }
         });
     }
@@ -159,19 +159,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Validasi form
         if (!product || !size || !quantity || !name || !phone || !address) {
-            alert('Harap lengkapi semua field yang diperlukan.');
+            alert('Please complete all required fields.');
             return;
         }
         
         // Format pesan untuk WhatsApp
-        const message = `Halo LA NOCHE, saya ingin memesan:\n\n` +
-                       `Produk: ${product}\n` +
-                       `Ukuran: ${size}\n` +
-                       `Kuantitas: ${quantity}\n` +
-                       `Nama: ${name}\n` +
-                       `Nomor WhatsApp: ${phone}\n` +
-                       `Alamat Pengiriman: ${address}\n\n` +
-                       `Saya memahami bahwa ini adalah pre-order dan akan memproses pesanan sesuai dengan ketentuan yang berlaku.`;
+        const message = `Hello LA NOCHE, I would like to order:\n\n` +
+                       `Product: ${product}\n` +
+                       `Size: ${size}\n` +
+                       `Quantity: ${quantity}\n` +
+                       `Name: ${name}\n` +
+                       `WhatsApp Number: ${phone}\n` +
+                       `Shipping Address: ${address}\n\n` +
+                       `I understand this is a pre-order and will process the order according to applicable terms.`;
         
         // Encode pesan untuk URL
         const encodedMessage = encodeURIComponent(message);
@@ -208,7 +208,7 @@ function renderProducts() {
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
                 <div class="product-price">${product.price}</div>
-                <button class="view-details">Lihat Detail</button>
+                <button class="view-details">View Details</button>
             </div>
         `;
         
@@ -287,7 +287,7 @@ function setupProductSlider(images, productName) {
     images.forEach((image, index) => {
         const slide = document.createElement('div');
         slide.className = 'slide';
-        slide.innerHTML = `<img src="${image}" alt="${productName} - Gambar ${index + 1}">`;
+        slide.innerHTML = `<img src="${image}" alt="${productName} - Image ${index + 1}">`;
         slidesContainer.appendChild(slide);
         
         // Create dot
@@ -400,6 +400,6 @@ window.addEventListener('scroll', function() {
     if (window.scrollY > 100) {
         header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     } else {
-        header.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+        header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     }
 });
