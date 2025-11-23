@@ -21,7 +21,7 @@ const products = [
         ]
     }
 ];
-
+// tinggal copy saja untuk menambahkan produk
 // Variabel global untuk slider dan data produk yang dipilih
 let currentSlideIndex = 0;
 let currentProductImages = [];
@@ -451,4 +451,5 @@ window.addEventListener('scroll', function() {
         header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     }
 });
+
 
