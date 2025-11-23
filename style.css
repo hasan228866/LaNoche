@@ -15,8 +15,6 @@
     --text-light: #f0f0f0;
     --red-blood: #8b0000;
     --dark-red: #660000;
-    --green: #2ecc71;
-    --red: #e74c3c;
 }
 
 body {
@@ -457,53 +455,9 @@ body {
 
 .product-detail-info .product-price {
     font-size: 1.2rem;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: var(--text-light);
     font-weight: 500;
-}
-
-/* Stock Info */
-.stock-info {
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-}
-
-.stock-available {
-    color: var(--green);
-    font-weight: 500;
-}
-
-.stock-low {
-    color: var(--gold);
-    font-weight: 500;
-}
-
-.stock-out {
-    color: var(--red);
-    font-weight: 500;
-}
-
-.size-stock {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.size-stock-info {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.size-label {
-    font-weight: 500;
-}
-
-.stock-count {
-    font-size: 0.8rem;
 }
 
 .product-features {
@@ -569,38 +523,12 @@ body {
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 1px;
-    position: relative;
 }
 
-.size-option:hover:not(.out-of-stock) {
+.size-option:hover, .size-option.active {
     background-color: var(--text-light);
     color: var(--black);
     border-color: var(--text-light);
-}
-
-.size-option.active:not(.out-of-stock) {
-    background-color: var(--text-light);
-    color: var(--black);
-    border-color: var(--text-light);
-}
-
-.size-option.out-of-stock {
-    opacity: 0.5;
-    cursor: not-allowed;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.size-option.out-of-stock::after {
-    content: 'SOLD OUT';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    background-color: var(--red);
-    color: white;
-    padding: 2px 8px;
-    font-size: 0.6rem;
-    border-radius: 2px;
 }
 
 .size-guide-link {
@@ -923,6 +851,29 @@ body {
     color: #777;
     font-weight: 300;
     font-size: 0.8rem;
+}
+
+/* Auto-fill Notification */
+.auto-fill-notification {
+    background-color: var(--gold);
+    color: var(--black);
+    padding: 10px 15px;
+    border-radius: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive */
