@@ -130,6 +130,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Back button functionality
+    const backButton = document.getElementById('back-button');
+    if (backButton) {
+        backButton.addEventListener('click', function() {
+            productModal.style.display = 'none';
+        });
+    }
+    
     // Order from detail button
     const orderFromDetail = document.getElementById('order-from-detail');
     if (orderFromDetail) {
