@@ -19,42 +19,6 @@ const products = [
             'Seams: Flatlock Construction',
             'Design: Minimalist with Embroidered Logo'
         ]
-    },
-    {
-        id: 'compression-fit',
-        name: 'Compression Fit',
-        price: 'Rp 279.000',
-        images: [
-            'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-        ],
-        description: 'Compression design for optimal muscle support and faster recovery.',
-        features: [
-            'Material: Nylon-Spandex Compression Blend',
-            'Technology: Muscle Support & Recovery',
-            'Feature: Four-Way Stretch',
-            'Ventilation: Breathable Mesh Inserts',
-            'Design: Slim Fit with Reflective Details'
-        ]
-    },
-    {
-        id: 'signature-edition',
-        name: 'Signature Edition',
-        price: 'Rp 329.000',
-        images: [
-            'https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-        ],
-        description: 'Limited edition with exclusive design and premium materials.',
-        features: [
-            'Material: Ultra-Premium Micro-Modal',
-            'Technology: Advanced Moisture Management',
-            'Feature: Anti-Odor Treatment',
-            'Seams: Seamless Construction',
-            'Design: Limited Edition with Numbered Tag'
-        ]
     }
 ];
 
@@ -487,3 +451,4 @@ window.addEventListener('scroll', function() {
         header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     }
 });
+
