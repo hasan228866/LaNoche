@@ -18,17 +18,7 @@ const products = [
             'Ventilation: Strategic Mesh Panels',
             'Seams: Flatlock Construction',
             'Design: Minimalist with Embroidered Logo'
-        ],
-        stock: {
-            total: 150,
-            sizes: {
-                'S': 25,
-                'M': 40,
-                'L': 35,
-                'XL': 30,
-                'XXL': 20
-            }
-        }
+        ]
     },
     {
         id: 'compression-fit',
@@ -46,17 +36,7 @@ const products = [
             'Feature: Four-Way Stretch',
             'Ventilation: Breathable Mesh Inserts',
             'Design: Slim Fit with Reflective Details'
-        ],
-        stock: {
-            total: 85,
-            sizes: {
-                'S': 10,
-                'M': 25,
-                'L': 20,
-                'XL': 20,
-                'XXL': 10
-            }
-        }
+        ]
     },
     {
         id: 'signature-edition',
@@ -74,23 +54,15 @@ const products = [
             'Feature: Anti-Odor Treatment',
             'Seams: Seamless Construction',
             'Design: Limited Edition with Numbered Tag'
-        ],
-        stock: {
-            total: 45,
-            sizes: {
-                'S': 5,
-                'M': 15,
-                'L': 15,
-                'XL': 8,
-                'XXL': 2
-            }
-        }
+        ]
     }
 ];
 
-// Variabel global untuk slider
+// Variabel global untuk slider dan data produk yang dipilih
 let currentSlideIndex = 0;
 let currentProductImages = [];
+let selectedProduct = null;
+let selectedSize = null;
 
 // Inisialisasi
 document.addEventListener('DOMContentLoaded', function() {
@@ -161,13 +133,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderFromDetail = document.getElementById('order-from-detail');
     if (orderFromDetail) {
         orderFromDetail.addEventListener('click', function() {
-            const selectedSize = document.querySelector('.size-option.active');
-            if (selectedSize && !selectedSize.classList.contains('out-of-stock')) {
-                document.getElementById('size').value = selectedSize.getAttribute('data-size');
+            const selectedSizeElement = document.querySelector('.size-option.active');
+            if (selectedSizeElement) {
+                // Simpan data produk dan size yang dipilih
+                selectedSize = selectedSizeElement.getAttribute('data-size');
+                
+                // Auto-fill form order
+                autoFillOrderForm(selectedProduct, selectedSize);
+                
+                // Tutup modal
                 productModal.style.display = 'none';
+                
+                // Scroll ke section order
                 document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+                
+                // Tampilkan notifikasi
+                showAutoFillNotification();
             } else {
-                alert('Please select an available size first.');
+                alert('Please select a size first.');
             }
         });
     }
@@ -227,46 +210,25 @@ function renderProducts() {
         productCard.className = 'product-card';
         productCard.setAttribute('data-product', product.id);
         
-        // Check stock status
-        const stockStatus = getStockStatus(product.stock.total);
-        const stockBadge = stockStatus === 'out' ? '<div class="stock-badge out-of-stock">SOLD OUT</div>' : 
-                          stockStatus === 'low' ? '<div class="stock-badge low-stock">LOW STOCK</div>' : '';
-        
         productCard.innerHTML = `
             <div class="product-image">
                 <img src="${product.images[0]}" alt="${product.name}">
-                ${stockBadge}
             </div>
             <div class="product-info">
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
                 <div class="product-price">${product.price}</div>
-                <button class="view-details" ${stockStatus === 'out' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
-                    ${stockStatus === 'out' ? 'SOLD OUT' : 'View Details'}
-                </button>
+                <button class="view-details">View Details</button>
             </div>
         `;
         
         productsContainer.appendChild(productCard);
         
         // Add click event to product card
-        if (stockStatus !== 'out') {
-            productCard.addEventListener('click', function() {
-                openProductModal(product.id);
-            });
-        }
+        productCard.addEventListener('click', function() {
+            openProductModal(product.id);
+        });
     });
-}
-
-// Fungsi untuk mendapatkan status stok
-function getStockStatus(totalStock) {
-    if (totalStock === 0) {
-        return 'out';
-    } else if (totalStock <= 20) {
-        return 'low';
-    } else {
-        return 'available';
-    }
 }
 
 // Fungsi untuk populate product dropdown
@@ -294,13 +256,13 @@ function openProductModal(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
+    // Simpan produk yang sedang dilihat
+    selectedProduct = product;
+    
     // Update modal content
     document.getElementById('detail-product-name').textContent = product.name;
     document.getElementById('detail-product-price').textContent = product.price;
     document.getElementById('detail-product-description').textContent = product.description;
-    
-    // Update stock information
-    updateStockInfo(product);
     
     const featuresList = document.getElementById('detail-product-features');
     featuresList.innerHTML = '';
@@ -310,8 +272,8 @@ function openProductModal(productId) {
         featuresList.appendChild(li);
     });
     
-    // Setup size options with stock
-    setupSizeOptions(product);
+    // Setup size options
+    setupSizeOptions();
     
     // Setup slider
     setupProductSlider(product.images, product.name);
@@ -320,45 +282,8 @@ function openProductModal(productId) {
     document.getElementById('product-modal').style.display = 'block';
 }
 
-// Fungsi untuk update informasi stok
-function updateStockInfo(product) {
-    const stockInfo = document.getElementById('stock-info');
-    const totalStock = product.stock.total;
-    const stockStatus = getStockStatus(totalStock);
-    
-    let stockHTML = '';
-    
-    if (stockStatus === 'out') {
-        stockHTML = `<div class="stock-out">🛒 OUT OF STOCK</div>`;
-    } else if (stockStatus === 'low') {
-        stockHTML = `<div class="stock-low">⚠️ LOW STOCK - Only ${totalStock} left</div>`;
-    } else {
-        stockHTML = `<div class="stock-available">✅ IN STOCK - ${totalStock} available</div>`;
-    }
-    
-    // Add detailed size stock information
-    stockHTML += `<div class="size-stock-details">`;
-    for (const [size, quantity] of Object.entries(product.stock.sizes)) {
-        const sizeStatus = quantity === 0 ? 'out' : quantity <= 5 ? 'low' : 'available';
-        const statusClass = sizeStatus === 'out' ? 'stock-out' : sizeStatus === 'low' ? 'stock-low' : 'stock-available';
-        const statusIcon = sizeStatus === 'out' ? '❌' : sizeStatus === 'low' ? '⚠️' : '✅';
-        
-        stockHTML += `
-            <div class="size-stock">
-                <div class="size-stock-info">
-                    <span class="size-label">Size ${size}:</span>
-                    <span class="stock-count ${statusClass}">${statusIcon} ${quantity} left</span>
-                </div>
-            </div>
-        `;
-    }
-    stockHTML += `</div>`;
-    
-    stockInfo.innerHTML = stockHTML;
-}
-
-// Fungsi untuk setup opsi ukuran dengan stok
-function setupSizeOptions(product) {
+// Fungsi untuk setup opsi ukuran
+function setupSizeOptions() {
     const sizeOptionsContainer = document.getElementById('size-options');
     sizeOptionsContainer.innerHTML = '';
     
@@ -370,24 +295,15 @@ function setupSizeOptions(product) {
         sizeOption.setAttribute('data-size', size);
         sizeOption.textContent = size;
         
-        const stock = product.stock.sizes[size] || 0;
-        
-        if (stock === 0) {
-            sizeOption.classList.add('out-of-stock');
-            sizeOption.disabled = true;
-        }
-        
         sizeOption.addEventListener('click', function() {
-            if (!this.classList.contains('out-of-stock')) {
-                // Remove active class from all options
-                document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
-                // Add active class to clicked option
-                this.classList.add('active');
-                
-                // Enable/disable order button based on selection
-                const orderButton = document.getElementById('order-from-detail');
-                orderButton.disabled = false;
-            }
+            // Remove active class from all options
+            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
+            // Add active class to clicked option
+            this.classList.add('active');
+            
+            // Enable order button
+            const orderButton = document.getElementById('order-from-detail');
+            orderButton.disabled = false;
         });
         
         sizeOptionsContainer.appendChild(sizeOption);
@@ -396,6 +312,46 @@ function setupSizeOptions(product) {
     // Disable order button initially
     const orderButton = document.getElementById('order-from-detail');
     orderButton.disabled = true;
+}
+
+// Fungsi untuk auto-fill form order
+function autoFillOrderForm(product, size) {
+    // Isi product dropdown
+    const productSelect = document.getElementById('product');
+    productSelect.value = product.name;
+    
+    // Isi size dropdown
+    const sizeSelect = document.getElementById('size');
+    sizeSelect.value = size;
+    
+    // Reset quantity ke 1
+    document.getElementById('quantity').value = 1;
+    
+    // Focus ke field name untuk memudahkan user
+    document.getElementById('name').focus();
+}
+
+// Fungsi untuk menampilkan notifikasi auto-fill
+function showAutoFillNotification() {
+    // Hapus notifikasi sebelumnya jika ada
+    const existingNotification = document.querySelector('.auto-fill-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Buat notifikasi
+    const notification = document.createElement('div');
+    notification.className = 'auto-fill-notification';
+    notification.innerHTML = `✅ Product <strong>${selectedProduct.name}</strong> with size <strong>${selectedSize}</strong> has been added to your order form!`;
+    
+    // Sisipkan notifikasi di atas form
+    const orderForm = document.querySelector('.order-form');
+    orderForm.parentNode.insertBefore(notification, orderForm);
+    
+    // Hapus notifikasi setelah 5 detik
+    setTimeout(() => {
+        notification.remove();
+    }, 5000);
 }
 
 // Fungsi untuk setup slider produk
