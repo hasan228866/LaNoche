@@ -174,14 +174,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Format pesan untuk WhatsApp
-        const message = `Hello LA NOCHE, I would like to order:\n\n` +
-                       `Product: ${product}\n` +
-                       `Size: ${size}\n` +
-                       `Quantity: ${quantity}\n` +
-                       `Name: ${name}\n` +
-                       `WhatsApp Number: ${phone}\n` +
-                       `Shipping Address: ${address}\n\n` +
-                       `All LA NOCHE products are made through a pre-order system with guaranteed quality. Order now and receive your premium gym wear in 5-7 days.`;
+        const message = `Halo LA NOCHE, saya ingin melakukan pemesanan:\n\n` +
+                       `Produk: ${product}\n` +
+                       `Ukuran: ${size}\n` +
+                       `Kuantitas: ${quantity}\n` +
+                       `Atas nama: ${name}\n` +
+                       `Nomor Whatsapp: ${phone}\n` +
+                       `Alamat Pengiriman: ${address}\n\n` +
+                       `Produk ini tersedia melalui sistem pre-order. Proses produksi berlangsung 4-5 hari kerja dan tidak termasuk estimasi waktu pengiriman oleh kurir.`;
         
         // Encode pesan untuk URL
         const encodedMessage = encodeURIComponent(message);
