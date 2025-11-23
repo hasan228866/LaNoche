@@ -540,6 +540,33 @@ body {
     color: var(--dark-gold);
 }
 
+/* Detail Actions */
+.detail-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.back-button {
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--text-light);
+    padding: 15px 30px;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 500;
+    flex: 1;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.back-button:hover {
+    background-color: var(--text-light);
+    color: var(--black);
+}
+
 .order-from-detail {
     background: transparent;
     color: var(--text-light);
@@ -548,8 +575,7 @@ body {
     border-radius: 0;
     cursor: pointer;
     font-weight: 500;
-    width: 100%;
-    margin-top: 20px;
+    flex: 1;
     transition: all 0.3s;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -871,6 +897,10 @@ body {
     
     .product-slider {
         height: 400px;
+    }
+    
+    .detail-actions {
+        flex-direction: column;
     }
 }
 
