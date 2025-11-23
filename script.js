@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                        `Name: ${name}\n` +
                        `WhatsApp Number: ${phone}\n` +
                        `Shipping Address: ${address}\n\n` +
-                       `I understand this is a pre-order and will process the order according to applicable terms.`;
+                       `All LA NOCHE products are made through a pre-order system with guaranteed quality. Order now and receive your premium gym wear in 5-7 days.`;
         
         // Encode pesan untuk URL
         const encodedMessage = encodeURIComponent(message);
