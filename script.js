@@ -1,27 +1,31 @@
 // DATA PRODUK - MUDAH DIUBAH
 // Anda hanya perlu mengubah array products di bawah ini untuk menambah/mengubah produk
-
+// copas dari id sampai tanda koma untuk menambah produk kaos, isSale di ubah menjadi false jika tidak ada diskon
 const products = [
     {
         id: 'performance-tee',
         name: 'Performance Tee',
-        price: 'Rp 249.000',
+        price: 'Rp 100.000',
+        originalPrice: 'Rp 179.000', // Harga asli sebelum diskon
+        discount: 44, // Persentase diskon
+        isSale: true, // Sedang diskon
         images: [
-            'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+            'dys d.jpg',
+            'dys b.jpg',
+            'dys.jpg'
         ],
-        description: 'High-performance tee with moisture-wicking technology for intensive training.',
+        description: 'High-performance tee with moisture-wicking technology for high intensity training.',
         features: [
-            'Material: Premium Cotton Blend',
-            'Technology: Moisture-Wicking',
-            'Ventilation: Strategic Mesh Panels',
-            'Seams: Flatlock Construction',
-            'Design: Minimalist with Embroidered Logo'
+            'Material: 100% Cotton fabric 24s Premium',
+            'Fabric Weight: 200gsm',
+            'Fit: Oversize Drop Shoulder',
+            'Color: Ash Gray / Light Gray',
+            'Printing: DTF Premium (Direct to Film)',
+            'Print Color: Blood Red with black accents on the font'
         ]
-    }
+    },
 ];
-// tinggal copy saja untuk menambahkan produk
+
 // Variabel global untuk slider dan data produk yang dipilih
 let currentSlideIndex = 0;
 let currentProductImages = [];
@@ -119,6 +123,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Event listener untuk perubahan kuantitas
+    const quantityInput = document.getElementById('quantity');
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() {
+            updatePriceBasedOnQuantity();
+        });
+        
+        quantityInput.addEventListener('change', function() {
+            updatePriceBasedOnQuantity();
+        });
+    }
+    
+    // Event listener untuk perubahan produk (untuk mengupdate harga awal)
+    const productSelect = document.getElementById('product');
+    if (productSelect) {
+        productSelect.addEventListener('change', function() {
+            // Update harga berdasarkan kuantitas saat ini
+            updatePriceBasedOnQuantity();
+        });
+    }
+    
     // Form submission untuk WhatsApp
     document.getElementById('order-form').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -137,15 +162,19 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Hitung total harga
+        const totalPrice = calculateTotalPrice();
+        
         // Format pesan untuk WhatsApp
-        const message = `Halo LA NOCHE, saya ingin melakukan pemesanan:\n\n` +
+        const message = `Halo LA NOCHE, Saya ingin pre order:\n\n` +
                        `Produk: ${product}\n` +
                        `Ukuran: ${size}\n` +
                        `Kuantitas: ${quantity}\n` +
-                       `Atas nama: ${name}\n` +
-                       `Nomor Whatsapp: ${phone}\n` +
+                       `Total Harga: ${totalPrice}\n` +
+                       `Nama: ${name}\n` +
+                       `Nomer Whatsapp: ${phone}\n` +
                        `Alamat Pengiriman: ${address}\n\n` +
-                       `Produk ini tersedia melalui sistem pre-order. Proses produksi berlangsung 4-5 hari kerja dan tidak termasuk estimasi waktu pengiriman oleh kurir.`;
+                       `Waktu pengerjaan untuk semua pesanan pre-order adalah 4-5 hari kerja setelah pembayaran dikonfirmasi. Pengiriman akan dilakukan setelah produk selesai diproses.`;
         
         // Encode pesan untuk URL
         const encodedMessage = encodeURIComponent(message);
@@ -161,6 +190,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Fungsi untuk menghitung total harga
+function calculateTotalPrice() {
+    const productSelect = document.getElementById('product');
+    const quantityInput = document.getElementById('quantity');
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const priceText = selectedOption.getAttribute('data-price');
+    
+    if (priceText && quantityInput) {
+        // Ekstrak angka dari string harga (misal: "Rp 100.000" -> 100000)
+        const priceValue = parseInt(priceText.replace(/[^\d]/g, ''));
+        const quantity = parseInt(quantityInput.value) || 1;
+        
+        // Hitung total harga
+        const totalPrice = priceValue * quantity;
+        
+        // Format ulang ke format Rupiah
+        return formatRupiah(totalPrice);
+    }
+    
+    return 'Rp 0';
+}
+
 // Fungsi untuk render produk
 function renderProducts() {
     const productsContainer = document.getElementById('products-container');
@@ -174,14 +225,34 @@ function renderProducts() {
         productCard.className = 'product-card';
         productCard.setAttribute('data-product', product.id);
         
+        // Generate badge HTML hanya untuk diskon
+        let badgeHTML = '';
+        if (product.isSale && product.discount > 0) {
+            badgeHTML = `<div class="product-badge sale-badge">-${product.discount}%</div>`;
+        }
+        
+        // Generate price HTML
+        let priceHTML = '';
+        if (product.originalPrice && product.isSale) {
+            priceHTML = `
+                <div class="product-price-container">
+                    <span class="current-price">${product.price}</span>
+                    <span class="original-price">${product.originalPrice}</span>
+                </div>
+            `;
+        } else {
+            priceHTML = `<div class="product-price">${product.price}</div>`;
+        }
+        
         productCard.innerHTML = `
             <div class="product-image">
                 <img src="${product.images[0]}" alt="${product.name}">
+                ${badgeHTML}
             </div>
             <div class="product-info">
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
-                <div class="product-price">${product.price}</div>
+                ${priceHTML}
                 <button class="view-details">View Details</button>
             </div>
         `;
@@ -211,8 +282,58 @@ function populateProductDropdown() {
         const option = document.createElement('option');
         option.value = product.name;
         option.textContent = product.name;
+        option.setAttribute('data-price', product.price); // Simpan harga sebagai data attribute
         productSelect.appendChild(option);
     });
+}
+
+// Fungsi untuk update harga berdasarkan kuantitas
+function updatePriceBasedOnQuantity() {
+    const productSelect = document.getElementById('product');
+    const quantityInput = document.getElementById('quantity');
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const priceText = selectedOption.getAttribute('data-price');
+    
+    if (priceText && quantityInput) {
+        // Ekstrak angka dari string harga (misal: "Rp 100.000" -> 100000)
+        const priceValue = parseInt(priceText.replace(/[^\d]/g, ''));
+        let quantity = parseInt(quantityInput.value) || 1;
+        
+        // Validasi kuantitas minimal 1
+        if (quantity < 1) {
+            quantityInput.value = 1;
+            quantity = 1;
+        }
+        
+        // Hitung total harga
+        const totalPrice = priceValue * quantity;
+        
+        // Format ulang ke format Rupiah
+        const formattedTotalPrice = formatRupiah(totalPrice);
+        
+        // Update tampilan harga di form order
+        const priceDisplay = document.getElementById('order-price-display');
+        if (priceDisplay) {
+            priceDisplay.textContent = formattedTotalPrice;
+            priceDisplay.classList.add('highlight');
+            
+            // Hapus highlight setelah 2 detik
+            setTimeout(() => {
+                priceDisplay.classList.remove('highlight');
+            }, 2000);
+        }
+    } else {
+        // Jika belum ada produk yang dipilih, tampilkan pesan default
+        const priceDisplay = document.getElementById('order-price-display');
+        if (priceDisplay) {
+            priceDisplay.textContent = 'Select a product to see price';
+        }
+    }
+}
+
+// Fungsi untuk format angka ke format Rupiah
+function formatRupiah(angka) {
+    return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 // Fungsi untuk membuka modal produk
@@ -223,9 +344,23 @@ function openProductModal(productId) {
     // Simpan produk yang sedang dilihat
     selectedProduct = product;
     
+    // Generate price HTML untuk modal
+    let priceHTML = '';
+    if (product.originalPrice && product.isSale) {
+        priceHTML = `
+            <div class="product-price-container">
+                <span class="current-price">${product.price}</span>
+                <span class="original-price">${product.originalPrice}</span>
+                <span class="discount-badge">-${product.discount}% OFF</span>
+            </div>
+        `;
+    } else {
+        priceHTML = `<div class="product-price">${product.price}</div>`;
+    }
+    
     // Update modal content
     document.getElementById('detail-product-name').textContent = product.name;
-    document.getElementById('detail-product-price').textContent = product.price;
+    document.getElementById('detail-product-price').innerHTML = priceHTML;
     document.getElementById('detail-product-description').textContent = product.description;
     
     const featuresList = document.getElementById('detail-product-features');
@@ -290,6 +425,9 @@ function autoFillOrderForm(product, size) {
     
     // Reset quantity ke 1
     document.getElementById('quantity').value = 1;
+    
+    // Update harga berdasarkan kuantitas
+    updatePriceBasedOnQuantity();
     
     // Focus ke field name untuk memudahkan user
     document.getElementById('name').focus();
@@ -451,5 +589,3 @@ window.addEventListener('scroll', function() {
         header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     }
 });
-
-
