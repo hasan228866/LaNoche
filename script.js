@@ -3,8 +3,8 @@
 // copas dari id sampai tanda koma untuk menambah produk kaos, isSale di ubah menjadi false jika tidak ada diskon
 const products = [
     {
-        id: 'performance-tee',
-        name: 'Performance Tee',
+        id: 'La Noche - DYSMORPHIA V1',
+        name: 'La Noche - DYSMORPHIA V1',
         price: 'Rp 100.000',
         originalPrice: 'Rp 179.000', // Harga asli sebelum diskon
         discount: 44, // Persentase diskon
@@ -589,3 +589,4 @@ window.addEventListener('scroll', function() {
         header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     }
 });
+
