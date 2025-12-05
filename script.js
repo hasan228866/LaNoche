@@ -18,10 +18,32 @@ const products = [
         features: [
             'Material: 100% Cotton fabric 24s Premium',
             'Fabric Weight: 200gsm',
-            'Fit: Oversize Drop Shoulder',
+            'Fit: Oversize',
             'Color: Ash Gray / Light Gray',
             'Printing: DTF Premium (Direct to Film)',
             'Print Color: Blood Red with black accents on the font'
+        ]
+    },
+    {
+        id: 'La Noche - BURN MEMEORIES V1',
+        name: 'La Noche - BURN MEMORIES V1',
+        price: 'Rp 100.000',
+        originalPrice: 'Rp 179.000', // Harga asli sebelum diskon
+        discount: 44, // Persentase diskon
+        isSale: true, // Sedang diskon
+        images: [
+            'brm d.jpg',
+            'brm b.jpg',
+            'brm.jpg'
+        ],
+        description: 'High-performance tee with moisture-wicking technology for high intensity training.',
+        features: [
+            'Material: 100% Cotton fabric 24s Premium',
+            'Fabric Weight: 200gsm',
+            'Fit: Oversize',
+            'Color: Dark Grey / Charcoal',
+            'Printing: DTF Premium (Direct to Film)',
+            'Print Color: Off-White With Blood Red'
         ]
     },
 ];
@@ -589,4 +611,3 @@ window.addEventListener('scroll', function() {
         header.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
     }
 });
-
